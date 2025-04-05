@@ -30,12 +30,12 @@ jobs:
          escape_json: false
          dir_names: true
          output_renamed_files_as_deleted_and_added: true
-         files: |
-             kafka/test/definitions/**/*.yaml
-#          files_yaml: |
-#            test:
-#              - kafka/test/definitions/**/*.yaml
-#              - kafka/test/definitions/**/*.yml
+        #  files: |
+        #      kafka/test/definitions/**/*.yaml
+         files_yaml: |
+           test:
+             - kafka/test/definitions/**/*.yaml
+             - kafka/test/definitions/**/*.yml
      - name: List all changed files when not using a key
        run: echo '${{ steps.changed-files.outputs.all_changed_files }}'
      - name: List all changed files in when using a key - test
