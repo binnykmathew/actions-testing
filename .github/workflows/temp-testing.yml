@@ -1,0 +1,42 @@
+name: "Temp testing"
+on:
+ workflow_dispatch:
+ pull_request:
+   branches:
+     - main
+   paths:
+     - 'kafka/**'
+
+permissions:
+ contents: write
+ pull-requests: write
+ issues: write
+
+jobs:
+ identify_changes:
+   name: Identifying changes to definition files
+   runs-on: ubuntu-latest
+   env:
+     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+   steps:
+     - uses: actions/checkout@v3
+       with:
+         fetch-depth: 0
+     - name: Find changes with existing action
+       uses: tj-actions/changed-files@v46
+       id: changed-files
+       with:
+         json: true
+         escape_json: false
+         dir_names: true
+         output_renamed_files_as_deleted_and_added: true
+         files: |
+             kafka/test/definitions/**/*.yaml
+#          files_yaml: |
+#            test:
+#              - kafka/test/definitions/**/*.yaml
+#              - kafka/test/definitions/**/*.yml
+     - name: List all changed files when not using a key
+       run: echo '${{ steps.changed-files.outputs.all_changed_files }}'
+     - name: List all changed files in when using a key - test
+       run: echo '${{ steps.changed-files.outputs.test_all_changed_files }}'

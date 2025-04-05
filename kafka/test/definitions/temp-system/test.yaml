@@ -1,0 +1,5 @@
+# Sample YAML configuration file
+system:
+  name: temp-system
+  version: 1.0.0
+  description: Sample dummy configuration for temp-system
